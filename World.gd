@@ -1,5 +1,6 @@
 extends Node2D
 
+signal leveled_up
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -18,6 +19,13 @@ func color_label(coo):
 	$Score.modulate = coo
 	$Timer.modulate = coo
 
+var health = 100 setget set_health, get_health
+func set_health(new_value):
+	health = clamp(new_value, 0, 100)
+func get_health():
+	return health
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("Hello World!")
@@ -30,6 +38,8 @@ func _ready():
 	for n in players.keys(): 
 		print(str(players[n]))
 	
+	self.connect("leveled_up", self, "_levelup")
+	
 func _input(event):
 	if event.is_action_pressed("my_action"):
 		if labelcolor == LABELCOLOR.RED:
@@ -40,13 +50,22 @@ func _input(event):
 			color_label(Color.green)
 	if event.is_action_released("my_action"):
 		color_label(Color.white);
-	#if event.is_action_pressed("my_action"):
-	#	$Score.modulate = Color.blue
-	#if event.is_action_released("my_action"):
-	#	$Score.modulate = Color.white
-	#if event.is_action_pressed("my_action"):
-	#	$Timer.modulate = Color.red
-	#if event.is_action_released("my_action"):
-	#	$Timer.modulate = Color.white
 	
 
+var bnumber = 1
+
+func _on_Button_pressed():
+	print("pressed " + str(bnumber))
+	bnumber += 1
+
+var xp = int(0)
+
+func _on_test_timer_timeout():
+	xp += 5
+	print(xp)
+	if xp >= 20:
+		xp = 0
+		emit_signal("leveled_up")
+		
+func _levelup():
+	print("yay!")
