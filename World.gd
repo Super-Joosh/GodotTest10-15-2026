@@ -55,17 +55,18 @@ func _input(event):
 var bnumber = 1
 
 func _on_Button_pressed():
-	print("pressed " + str(bnumber))
+	#print("pressed " + str(bnumber))
 	bnumber += 1
 
 var xp = int(0)
 
 func _on_test_timer_timeout():
 	xp += 5
-	print(xp)
+	#print(xp)
 	if xp >= 20:
 		xp = 0
 		emit_signal("leveled_up")
 		
 func _levelup():
-	print("yay!")
+	#print("yay!")
+	return
