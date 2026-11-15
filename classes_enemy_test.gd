@@ -17,4 +17,4 @@ func _ready():
 #func _process(delta):
 #	pass
 func _take_damage(hit):
-	print("Ow! [" + enemy_type + "-" + hit + " health]")
+	print("Ow! [" + str(enemy_type_enum.keys()[enemy_type]) + " -" + str(hit) + " health]")

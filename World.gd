@@ -2,6 +2,8 @@ extends Node2D
 
 signal leveled_up
 
+onready var enemy_in_world = get_node("classes_enemy_test")
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -40,6 +42,7 @@ func _ready():
 	
 	self.connect("leveled_up", self, "_levelup")
 	
+	
 func _input(event):
 	if event.is_action_pressed("my_action"):
 		if labelcolor == LABELCOLOR.RED:
@@ -50,6 +53,10 @@ func _input(event):
 			color_label(Color.green)
 	if event.is_action_released("my_action"):
 		color_label(Color.white);
+	if event.is_action_pressed("my_action"):
+		randomize()
+		var damage = randi() % 701 + 100
+		enemy_in_world._take_damage(damage)
 	
 
 var bnumber = 1
