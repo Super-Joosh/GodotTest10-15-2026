@@ -2,6 +2,7 @@ extends Node2D
 
 signal leveled_up
 
+
 onready var enemy_in_world = get_node("classes_enemy_test")
 
 # Declare member variables here. Examples:
@@ -18,8 +19,8 @@ enum LABELCOLOR {RED, BLUE, GREEN}
 export(LABELCOLOR) var labelcolor = LABELCOLOR.RED
 
 func color_label(coo):
-	$Score.modulate = coo
-	$Timer.modulate = coo
+	$score_label.modulate = coo
+	$timer_label.modulate = coo
 
 var health = 100 setget set_health, get_health
 func set_health(new_value):
@@ -32,8 +33,8 @@ func get_health():
 func _ready():
 	print("Hello World!")
 	print("10/19/2026, 13:09")
-	$Score.modulate = Color.white
-	$Timer.modulate = Color.white
+	$score_label.modulate = Color.white
+	$timer_label.modulate = Color.white
 	
 	players["Rebekah"] = 4
 	
@@ -59,11 +60,12 @@ func _input(event):
 		enemy_in_world._take_damage(damage)
 	
 
-var bnumber = 1
+var bnumber = 0
 
 func _on_Button_pressed():
 	#print("pressed " + str(bnumber))
 	bnumber += 1
+	$score_label.text = "Score: " + str(bnumber)
 
 var xp = int(0)
 
@@ -77,3 +79,11 @@ func _on_test_timer_timeout():
 func _levelup():
 	#print("yay!")
 	return
+
+func _on_timer_timeout():
+	$timer_label.text = "Time's up!"
+	$button.disconnect("pressed", self, "_on_Button_pressed")
+	
+	
+func _process(delta):
+	$timer_label.text = "Timer: " + str(stepify($timer.time_left, 0.1))
