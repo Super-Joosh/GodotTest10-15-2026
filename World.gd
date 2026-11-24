@@ -81,9 +81,21 @@ func _levelup():
 	return
 
 func _on_timer_timeout():
-	$timer_label.text = "Time's up!"
+	if (bnumber == 0):
+		$timer_label.text = "Time's up! Why didn't you click the button T-T"
+	elif (bnumber <= 10):
+		$timer_label.text = "Time's up! That's a really low score..."
+	elif (bnumber <= 15):
+		$timer_label.text = "Time's up! Uh... Nice job!"
+	elif (bnumber <= 20):
+		$timer_label.text = "Time's up! That's pretty good!"
+	elif (bnumber <= 30):
+		$timer_label.text = "Time's up! Nice score!"
+	elif (bnumber > 30):
+		$timer_label.text = "Time's up! :0"
 	$button.disconnect("pressed", self, "_on_Button_pressed")
-	
+	$timer.disconnect("timeout", self, "_on_timer_timeout")
 	
 func _process(delta):
-	$timer_label.text = "Timer: " + str(stepify($timer.time_left, 0.1))
+	if ($timer.time_left != 0):
+		$timer_label.text = "Timer: " + str(stepify($timer.time_left, 0.1))
