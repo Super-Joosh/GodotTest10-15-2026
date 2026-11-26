@@ -43,6 +43,10 @@ func _ready():
 	
 	self.connect("leveled_up", self, "_levelup")
 	
+	$button.rect_position = Vector2(474, 230)
+	
+	randomize()
+	
 	
 func _input(event):
 	if event.is_action_pressed("my_action"):
@@ -55,7 +59,7 @@ func _input(event):
 	if event.is_action_released("my_action"):
 		color_label(Color.white);
 	if event.is_action_pressed("my_action"):
-		randomize()
+		
 		var damage = randi() % 701 + 100
 		enemy_in_world._take_damage(damage)
 	
@@ -66,6 +70,9 @@ func _on_Button_pressed():
 	#print("pressed " + str(bnumber))
 	bnumber += 1
 	$score_label.text = "Score: " + str(bnumber)
+	var rand_x = randi() % 900 + 58
+	var rand_y = randi() % 480 + 55
+	$button.rect_position = Vector2(rand_x, rand_y)
 
 var xp = int(0)
 
